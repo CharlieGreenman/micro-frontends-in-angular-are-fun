@@ -13,6 +13,9 @@
     },
     "px-base": {
       "tags": []
+    },
+    "product-cart": {
+      "tags": []
     }
   }
 }

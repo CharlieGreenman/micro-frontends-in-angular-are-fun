@@ -123,6 +123,37 @@
           }
         }
       }
+    },
+    "product-cart": {
+      "projectType": "library",
+      "root": "libs/product-cart",
+      "sourceRoot": "libs/product-cart/src",
+      "prefix": "micro-frontends",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/product-cart/tsconfig.lib.json",
+              "libs/product-cart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/product-cart/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/product-cart/jest.config.js",
+            "tsConfig": "libs/product-cart/tsconfig.spec.json",
+            "setupFile": "libs/product-cart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {
