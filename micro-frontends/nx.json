@@ -1,0 +1,18 @@
+{
+  "npmScope": "micro-frontends",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "px-base-e2e": {
+      "tags": []
+    },
+    "px-base": {
+      "tags": []
+    }
+  }
+}

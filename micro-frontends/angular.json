@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "projects": {
+    "px-base": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/px-base",
+      "sourceRoot": "apps/px-base/src",
+      "prefix": "micro-frontends",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/px-base",
+            "index": "apps/px-base/src/index.html",
+            "main": "apps/px-base/src/main.ts",
+            "polyfills": "apps/px-base/src/polyfills.ts",
+            "tsConfig": "apps/px-base/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/px-base/src/favicon.ico",
+              "apps/px-base/src/assets"
+            ],
+            "styles": ["apps/px-base/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/px-base/src/environments/environment.ts",
+                  "with": "apps/px-base/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "px-base:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "px-base:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "px-base:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/px-base/tsconfig.app.json",
+              "apps/px-base/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/px-base/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/px-base/jest.config.js",
+            "tsConfig": "apps/px-base/tsconfig.spec.json",
+            "setupFile": "apps/px-base/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "px-base-e2e": {
+      "root": "apps/px-base-e2e",
+      "sourceRoot": "apps/px-base-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/px-base-e2e/cypress.json",
+            "tsConfig": "apps/px-base-e2e/tsconfig.e2e.json",
+            "devServerTarget": "px-base:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "px-base:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/px-base-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/px-base-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "px-base"
+}
